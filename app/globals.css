@@ -1,26 +1,163 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
+/* ── Brand CSS variables ─────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* shadcn design tokens */
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 180 84% 23%;        /* brand-teal #0B6E6E */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 38 82% 51%;       /* brand-gold #E8A020 */
+  --secondary-foreground: 240 10% 3.9%;
+  --muted: 210 20% 96%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 158 58% 43%;         /* brand-green #2EAE7D */
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 180 84% 23%;
+  --radius: 0.5rem;
+
+  /* Healths.ng brand tokens */
+  --brand-teal: #0B6E6E;
+  --brand-teal-light: #0D8A8A;
+  --brand-teal-dark: #085555;
+  --brand-teal-50: #E8F5F5;
+  --brand-gold: #E8A020;
+  --brand-gold-light: #F0B845;
+  --brand-gold-dark: #C4861A;
+  --brand-green: #2EAE7D;
+  --brand-green-light: #35C490;
+  --brand-green-dark: #248C64;
+  --brand-charcoal: #1A1A2E;
+  --brand-charcoal-light: #2A2A45;
+  --brand-off-white: #F8F9FA;
+  --brand-warm-gray: #F1F3F4;
 }
 
+/* ── Tailwind v4 theme tokens ────────────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Brand colors available as Tailwind classes */
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-teal-light: var(--brand-teal-light);
+  --color-brand-teal-dark: var(--brand-teal-dark);
+  --color-brand-teal-50: var(--brand-teal-50);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-light: var(--brand-gold-light);
+  --color-brand-gold-dark: var(--brand-gold-dark);
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-light: var(--brand-green-light);
+  --color-brand-green-dark: var(--brand-green-dark);
+  --color-brand-charcoal: var(--brand-charcoal);
+  --color-brand-charcoal-light: var(--brand-charcoal-light);
+  --color-brand-off-white: var(--brand-off-white);
+  --color-brand-warm-gray: var(--brand-warm-gray);
+
+  /* Font families */
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+  --font-accent: "DM Serif Display", serif;
+
+  /* Border radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Animations */
+  --animate-fade-in: fadeIn 0.6s ease-out forwards;
+  --animate-slide-up: slideUp 0.6s ease-out forwards;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 
+/* ── Base styles ─────────────────────────────────────────────── */
+* {
+  border-color: hsl(var(--border));
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Skip navigation */
+.skip-nav {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--brand-teal);
+  color: white;
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+  border-radius: 0 0 0.5rem 0;
+}
+
+.skip-nav:focus {
+  top: 0;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--brand-teal);
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prose overrides for article content */
+.prose {
+  --tw-prose-headings: var(--brand-charcoal);
+  --tw-prose-links: var(--brand-teal);
+  --tw-prose-bold: var(--brand-charcoal);
+  max-width: none;
 }
