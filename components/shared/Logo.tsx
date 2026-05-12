@@ -17,7 +17,7 @@ export function Logo({ variant = 'icon', size = 'md', className }: LogoProps) {
       <Link href="/" aria-label="Healths.ng — Home" className={cn('inline-flex', className)}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/logo-full.svg"
+          src="/logo-full.png"
           alt="Healths.ng Media Limited"
           width={fullWidthPx[size]}
           style={{ height: 'auto' }}
@@ -31,10 +31,10 @@ export function Logo({ variant = 'icon', size = 'md', className }: LogoProps) {
     <Link href="/" aria-label="Healths.ng — Home" className={cn('inline-flex', className)}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/logo-icon.svg"
+        src="/logo-icon-trimmed.png"
         alt="Healths.ng"
         width={iconPx[size]}
-        height={iconPx[size]}
+        style={{ height: 'auto' }}
         draggable={false}
       />
     </Link>

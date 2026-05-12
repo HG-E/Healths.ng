@@ -53,12 +53,12 @@ export function Footer() {
                 <Mail size={14} /> hello@healths.ng
               </a>
               <a
-                href="https://wa.me/2348000000000"
+                href="https://wa.me/2347030515183"
                 className="flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Phone size={14} /> +234 800 000 0000
+                <Phone size={14} /> +234 703 051 5183
               </a>
               <div className="flex items-center gap-2 text-white/70 text-sm">
                 <MapPin size={14} /> Lagos, Nigeria
