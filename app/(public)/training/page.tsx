@@ -11,17 +11,17 @@ import { buildMetadata } from '@/lib/utils/seo'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Training & Capacity Building Programs',
-  description: 'Upcoming training programs, workshops, and courses for healthcare professionals in Nigeria. Digital skills, personal branding, and healthcare marketing.',
+  description: 'Upcoming training programs, workshops, and courses for Nigerian healthcare professionals. Digital literacy, personal branding, research visibility, and healthcare marketing.',
   path: '/training',
 })
 
 export const revalidate = 3600
 
 const trainingCategories = [
-  { title: 'Digital Literacy for Healthcare', description: 'Learn to use digital tools — telemedicine, EHRs, social media — confidently and professionally.' },
-  { title: 'Research Visibility & Publication', description: 'Amplify your research impact. Learn to use scholarly platforms and write for health media.' },
-  { title: 'LinkedIn & Personal Branding', description: 'Build a powerful online presence as a healthcare professional.' },
-  { title: 'Healthcare Marketing', description: 'Grow your patient base and practice with proven digital marketing strategies.' },
+  { title: 'Digital Literacy for Nigerian Healthcare Workers', description: 'Master the digital tools transforming Nigerian healthcare — telemedicine platforms, electronic health records, social media for patient education, and digital communication tools used in Nigerian hospitals and clinics.' },
+  { title: 'Research Visibility & Publication', description: 'Nigerian researchers produce world-class work that often goes unseen. Learn to publish in indexed journals, use platforms like ResearchGate and PubMed, and get your work into health media.' },
+  { title: 'LinkedIn & Personal Branding for Health Professionals', description: 'Build a powerful online presence that positions you as the go-to expert in your specialty — attracting patients, speaking opportunities, consulting requests, and career advancement in Nigeria and beyond.' },
+  { title: 'Healthcare Marketing for Nigerian Practices', description: 'Learn the digital marketing strategies that actually work in Nigeria — from Google My Business to WhatsApp marketing, Instagram reels for clinics, and community health campaigns that convert.' },
 ]
 
 export default async function TrainingPage() {
@@ -41,7 +41,7 @@ export default async function TrainingPage() {
               <li className="text-white">Training</li>
             </ol>
           </nav>
-          <SectionHeading label="Training Programs" title="Grow Your Skills. Grow Your Impact." subtitle="Practical, hands-on training programs designed specifically for African healthcare professionals. Online and in-person options available." inverted align="left" />
+          <SectionHeading label="Training Programs" title="Grow Your Skills. Grow Your Impact. Grow Nigeria's Healthcare." subtitle="Practical, hands-on training programs designed specifically for Nigerian healthcare professionals — from Kano to Lagos, Enugu to Abuja. Online and in-person options available." inverted align="left" />
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link href="/contact#booking">
               <Button className="bg-white text-brand-gold-dark hover:bg-amber-50 font-bold px-8">Request Custom Training</Button>
@@ -98,7 +98,7 @@ export default async function TrainingPage() {
             <div className="text-center py-20 bg-brand-warm-gray rounded-2xl mt-12">
               <Calendar size={40} className="text-gray-300 mx-auto mb-4" />
               <p className="text-gray-500 text-lg font-medium">No upcoming events scheduled yet.</p>
-              <p className="text-gray-400 text-sm mt-2 mb-6">Request a custom training for your team or organization.</p>
+              <p className="text-gray-400 text-sm mt-2 mb-6">Request a custom training session for your hospital, clinic, or health organization anywhere in Nigeria.</p>
               <Link href="/contact#booking">
                 <Button className="bg-brand-teal hover:bg-brand-teal-dark text-white font-bold">Request Custom Training</Button>
               </Link>
@@ -122,7 +122,7 @@ export default async function TrainingPage() {
         </div>
       </section>
 
-      <CTASection title="Can't Find What You're Looking For?" subtitle="We design custom training programs for organizations and healthcare institutions. Tell us what you need." primaryCTA={{ label: 'Request Custom Training', href: '/contact#booking' }} />
+      <CTASection title="Need Training for Your Hospital or Health Team?" subtitle="We design custom training programs for Nigerian healthcare institutions, NGOs, and state health agencies. Tell us what you need and we'll build it." primaryCTA={{ label: 'Request Custom Training', href: '/contact#booking' }} secondaryCTA={{ label: 'View All Services', href: '/services' }} />
     </>
   )
 }

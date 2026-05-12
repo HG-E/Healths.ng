@@ -9,12 +9,12 @@ import { NewsletterSection } from '@/components/sections/NewsletterSection'
 import { CTASection } from '@/components/sections/CTASection'
 
 export const metadata: Metadata = {
-  title: 'Healths.ng Media Limited — Africa\'s Health Media & Digital Empowerment Platform',
+  title: 'Healths.ng Media Limited — Nigeria\'s Health Knowledge & Digital Growth Platform',
   description:
-    'We help healthcare professionals grow their digital presence and make health knowledge accessible to everyone across Africa. Health articles, digital services, and training.',
+    'Nigeria\'s trusted health media platform. We publish expert health content Nigerians rely on, and help Nigerian healthcare professionals build their digital presence, attract more patients, and grow their practice.',
   openGraph: {
     title: 'Healths.ng Media Limited',
-    description: 'Africa\'s Health Media & Digital Empowerment Platform',
+    description: 'Nigeria\'s Health Knowledge & Digital Growth Platform',
   },
 }
 

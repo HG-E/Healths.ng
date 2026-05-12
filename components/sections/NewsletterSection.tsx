@@ -43,8 +43,8 @@ export function NewsletterSection() {
         <SectionHeading
           id="newsletter-heading"
           label="Newsletter"
-          title="Stay Updated on Health & Digital Empowerment"
-          subtitle="Join 10,000+ health professionals and enthusiasts receiving weekly insights, tips, and resources."
+          title="Nigeria's Health Insights, Delivered Weekly"
+          subtitle="Join 10,000+ Nigerian healthcare professionals and health-conscious Nigerians getting expert health updates, digital growth tips, and industry news — free, every week."
           inverted
         />
 
@@ -52,7 +52,7 @@ export function NewsletterSection() {
           <div className="mt-10 flex flex-col items-center gap-3 text-white">
             <CheckCircle2 size={40} className="text-brand-green" />
             <p className="font-semibold text-lg">You&apos;re subscribed!</p>
-            <p className="text-white/70">Welcome to the Healths.ng community. Check your inbox for a welcome email.</p>
+            <p className="text-white/70">Welcome to the Healths.ng community. Your first newsletter is on its way.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} className="mt-10" noValidate>

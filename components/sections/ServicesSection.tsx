@@ -44,8 +44,8 @@ export function ServicesSection() {
         <SectionHeading
           id="services-heading"
           label="What We Do"
-          title="Four Ways We Empower Health Professionals"
-          subtitle="From digital presence to content creation, we provide end-to-end support for healthcare professionals and organizations across Africa."
+          title="Four Ways We Grow Nigerian Healthcare Professionals"
+          subtitle="From building your digital presence to creating trusted health content, we provide end-to-end support for Nigerian clinics, hospitals, and health professionals."
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">

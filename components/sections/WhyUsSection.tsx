@@ -4,25 +4,25 @@ import { SectionHeading } from '@/components/shared/SectionHeading'
 const reasons = [
   {
     icon: ShieldCheck,
-    title: 'Trusted Health Information',
+    title: 'Nigeria-Verified Health Content',
     description:
-      'All our content is reviewed by healthcare professionals. We uphold accuracy, evidence-based guidance, and responsible communication.',
+      'Every article and resource is reviewed by Nigerian-trained healthcare professionals. Accurate, evidence-based, and relevant to Nigeria\'s unique health challenges.',
     color: 'text-brand-teal',
     bg: 'bg-brand-teal-50',
   },
   {
     icon: Users,
-    title: 'Professional Network',
+    title: 'Built for Nigerian Professionals',
     description:
-      'We connect healthcare professionals, organizations, and the public through a thriving community focused on health empowerment.',
+      'We understand Nigeria\'s healthcare environment — from NHIS to NMA, MDCN regulations to state-level challenges. Our services are designed for your specific context.',
     color: 'text-brand-green',
     bg: 'bg-emerald-50',
   },
   {
     icon: TrendingUp,
-    title: 'Digital Transformation',
+    title: 'Real, Measurable Growth',
     description:
-      'From website design to digital marketing, we provide the tools and training to make healthcare organizations thrive online.',
+      'We don\'t just create content or build websites — we deliver outcomes. More patient inquiries, more professional visibility, more practice growth for Nigerian health professionals.',
     color: 'text-brand-gold-dark',
     bg: 'bg-amber-50',
   },
@@ -35,8 +35,8 @@ export function WhyUsSection() {
         <SectionHeading
           id="why-us-heading"
           label="Why Healths.ng"
-          title="The Platform Built for African Healthcare"
-          subtitle="We understand the unique challenges of building a healthcare presence in Africa. That's why everything we do is designed for your context."
+          title="The Platform Built for Nigerian Healthcare"
+          subtitle="We understand the unique realities of building a healthcare presence in Nigeria. Everything we do is designed around your environment, your patients, and your growth."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">

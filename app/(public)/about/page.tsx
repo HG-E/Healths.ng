@@ -11,24 +11,24 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 export const metadata: Metadata = buildMetadata({
   title: 'About Us',
-  description: 'Learn about Healths.ng Media Limited — Africa\'s health media and digital empowerment platform based in Nigeria.',
+  description: 'Learn about Healths.ng Media Limited — Nigeria\'s leading health media and digital empowerment platform helping healthcare professionals grow their practice and reach.',
   path: '/about',
 })
 
 const pillars = [
-  { icon: Heart, title: 'Health First', description: 'Every decision we make is guided by what\'s best for health outcomes and the communities we serve.' },
-  { icon: Globe, title: 'Africa-Centred', description: 'We build for the African context — understanding the unique challenges and opportunities in our healthcare landscape.' },
-  { icon: Target, title: 'Practical Impact', description: 'We don\'t just create content — we drive real change. Our work translates into measurable outcomes for professionals and patients.' },
-  { icon: CheckCircle, title: 'Professional Excellence', description: 'We hold ourselves to the highest standards of accuracy, integrity, and professionalism in everything we produce.' },
+  { icon: Heart, title: 'Health First', description: 'Every decision we make is guided by what\'s best for health outcomes in Nigeria. We will never compromise on accuracy or patient safety for any business reason.' },
+  { icon: Globe, title: 'Nigeria-Centred', description: 'We build for the Nigerian context — understanding NHIS, MDCN regulations, NMA dynamics, state health systems, and the real challenges Nigerian professionals face daily.' },
+  { icon: Target, title: 'Practical Impact', description: 'We don\'t just create content — we drive measurable results. More patient inquiries, more professional visibility, more practice growth for Nigerian healthcare providers.' },
+  { icon: CheckCircle, title: 'Professional Excellence', description: 'We hold ourselves to the highest standards of accuracy, integrity, and professionalism. Our content is reviewed by Nigerian healthcare professionals before it goes live.' },
 ]
 
 const values = [
-  'Accuracy and evidence-based communication',
-  'Accessibility of health information for all',
-  'Empowerment of health professionals',
-  'Integrity in all our partnerships',
-  'Innovation in health communication',
-  'Pan-African perspective and pride',
+  'Accuracy and evidence-based health communication',
+  'Accessibility of health information for all Nigerians',
+  'Empowerment of Nigerian health professionals',
+  'Integrity and transparency in all our work',
+  'Innovation in Nigerian health communication',
+  'Commitment to Nigeria\'s health sector growth',
 ]
 
 export const revalidate = 3600
@@ -45,7 +45,7 @@ export default async function AboutPage() {
     name: 'Healths.ng Media Limited',
     url: 'https://healths.ng',
     logo: 'https://healths.ng/og/default-og.jpg',
-    description: 'Africa\'s leading health media and digital empowerment platform.',
+    description: 'Nigeria\'s leading health media and digital empowerment platform for healthcare professionals.',
     address: { '@type': 'PostalAddress', addressLocality: 'Lagos', addressCountry: 'NG' },
     contactPoint: { '@type': 'ContactPoint', email: 'hello@healths.ng', contactType: 'customer service' },
   }
@@ -65,7 +65,7 @@ export default async function AboutPage() {
             </ol>
           </nav>
           <div className="max-w-3xl">
-            <SectionHeading label="About Us" title="Making Health Knowledge Accessible, Visible, and Actionable" subtitle="We are Africa's health media and digital empowerment platform — building the bridge between healthcare professionals and the communities they serve." inverted align="left" />
+            <SectionHeading label="About Us" title="Making Nigerian Health Knowledge Accessible, Visible, and Actionable" subtitle="We are Nigeria's health media and digital empowerment platform — connecting healthcare professionals with the patients and communities they serve, one digital touchpoint at a time." inverted align="left" />
           </div>
         </div>
       </section>
@@ -79,14 +79,14 @@ export default async function AboutPage() {
                 <Target size={24} className="text-white" />
               </div>
               <h2 id="mission-heading" className="font-display font-bold text-2xl text-brand-charcoal mb-4">Our Mission</h2>
-              <p className="text-gray-700 leading-relaxed">To make health knowledge accessible, visible, and actionable for every Nigerian and African — by empowering healthcare professionals with digital tools and skills, and by delivering trusted health content that reaches and educates the public.</p>
+              <p className="text-gray-700 leading-relaxed">To make health knowledge accessible, visible, and actionable for every Nigerian — by empowering healthcare professionals with the digital tools and skills they need, and by delivering trusted health content that informs, protects, and educates the Nigerian public.</p>
             </div>
             <div className="p-8 rounded-2xl bg-emerald-50 border border-brand-green/10">
               <div className="w-12 h-12 bg-brand-green rounded-xl flex items-center justify-center mb-4">
                 <Eye size={24} className="text-white" />
               </div>
               <h2 className="font-display font-bold text-2xl text-brand-charcoal mb-4">Our Vision</h2>
-              <p className="text-gray-700 leading-relaxed">A future where every African has access to reliable health information, and every African healthcare professional has the digital tools and visibility to deliver quality care, grow their practice, and lead positive health outcomes.</p>
+              <p className="text-gray-700 leading-relaxed">A Nigeria where every citizen has access to reliable health information, and every Nigerian healthcare professional has the digital tools, visibility, and community to deliver quality care, grow their practice, and drive positive health outcomes across the country.</p>
             </div>
           </div>
         </div>
@@ -97,12 +97,12 @@ export default async function AboutPage() {
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <SectionHeading id="story-heading" label="Our Story" title="Built from a Deep Belief in African Health" align="left" />
+              <SectionHeading id="story-heading" label="Our Story" title="Built for Nigeria's Healthcare Reality" align="left" />
               <div className="mt-6 space-y-4 text-gray-700 leading-relaxed">
-                <p>Healths.ng Media Limited was founded with a clear observation: Nigerian and African healthcare professionals are among the most talented and dedicated in the world — but many lack the digital presence, tools, and communication skills to maximize their impact.</p>
-                <p>At the same time, millions of Nigerians are making critical health decisions based on misinformation, rumor, and inadequate access to expert guidance.</p>
-                <p>We built Healths.ng to solve both problems simultaneously — by creating a platform that empowers health professionals digitally, while also producing the trusted health content that everyday Africans need.</p>
-                <p>Today, we are proud to serve healthcare professionals, organizations, students, and patients across Nigeria and Africa — helping them grow, connect, and thrive.</p>
+                <p>Healths.ng Media Limited was born from a clear observation: Nigerian healthcare professionals are among the most resilient and capable in the world — but many are invisible online, underequipped digitally, and unable to scale their reach or impact beyond their immediate environment.</p>
+                <p>At the same time, millions of Nigerians are making life-and-death health decisions based on WhatsApp forwards, hearsay, and misinformation — because credible, accessible health content in a Nigerian context is scarce.</p>
+                <p>We built Healths.ng to solve both problems at once — by equipping healthcare professionals with the digital presence and skills they need to thrive, and by producing the trusted health content that every Nigerian deserves to have access to.</p>
+                <p>Today, we serve doctors, nurses, pharmacists, hospital administrators, health NGOs, and everyday Nigerians who care about their health — helping them grow, connect, and make better decisions.</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -125,7 +125,7 @@ export default async function AboutPage() {
       {/* Pillars */}
       <section className="py-20 bg-white" aria-labelledby="pillars-heading">
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
-          <SectionHeading id="pillars-heading" label="Brand Pillars" title="What We Stand For" />
+          <SectionHeading id="pillars-heading" label="Brand Pillars" title="What We Stand For in Nigerian Healthcare" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
             {pillars.map(({ icon: Icon, title, description }) => (
               <div key={title} className="p-6 rounded-2xl bg-brand-warm-gray border border-gray-100 text-center">
@@ -183,7 +183,7 @@ export default async function AboutPage() {
         </section>
       )}
 
-      <CTASection title="Ready to Work With Us?" subtitle="Let's talk about how Healths.ng can help your healthcare practice or organization grow." />
+      <CTASection title="Ready to Work With Nigeria's Health Media Platform?" subtitle="Whether you're a solo practitioner in Port Harcourt, a clinic in Abuja, or an NGO running health campaigns — let's talk about how Healths.ng can help you grow." />
     </>
   )
 }

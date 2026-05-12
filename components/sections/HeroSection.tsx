@@ -21,17 +21,25 @@ export function HeroSection() {
           <div className="text-white animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border border-white/20">
               <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse" />
-              <span className="text-sm font-medium text-white/90">Africa&apos;s Health Media Platform</span>
+              <span className="text-sm font-medium text-white/90">Nigeria&apos;s Health Media Platform</span>
             </div>
 
             <h1 className="font-display font-bold text-4xl md:text-5xl xl:text-6xl leading-tight mb-6">
-              Africa&apos;s Health Media{' '}
-              <span className="text-brand-gold">&</span> Digital Empowerment Platform
+              Nigeria&apos;s Health Knowledge{' '}
+              <span className="text-brand-gold">&</span> Digital Growth Platform
             </h1>
 
-            <p className="text-white/85 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
-              We help healthcare professionals grow their digital presence and make health
-              knowledge accessible to everyone across Africa.
+            <p className="text-white/85 text-lg md:text-xl leading-relaxed mb-3 max-w-lg">
+              We publish expert health content that millions of Nigerians rely on for accurate
+              medical guidance.
+            </p>
+            <p className="text-white/75 text-base md:text-lg leading-relaxed mb-3 max-w-lg">
+              We help Nigerian healthcare professionals build their digital presence, attract
+              more patients, and grow their practice.
+            </p>
+            <p className="text-white/65 text-sm md:text-base leading-relaxed mb-8 max-w-lg italic">
+              Because when health professionals thrive, every Nigerian gets better access to
+              the care they deserve.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -40,7 +48,7 @@ export function HeroSection() {
                   size="lg"
                   className="bg-white text-brand-teal hover:bg-brand-teal-50 font-bold px-8 w-full sm:w-auto"
                 >
-                  Explore Our Services
+                  Grow Your Practice
                   <ArrowRight size={16} className="ml-2" />
                 </Button>
               </Link>
@@ -61,9 +69,9 @@ export function HeroSection() {
           <div className="grid grid-cols-2 gap-4 animate-slide-up">
             {[
               { icon: Users, value: '10,000+', label: 'Professionals Reached', color: 'bg-white/15' },
-              { icon: BookOpen, value: '500+', label: 'Health Articles', color: 'bg-brand-gold/20' },
+              { icon: BookOpen, value: '500+', label: 'Health Articles Published', color: 'bg-brand-gold/20' },
               { icon: Shield, value: '50+', label: 'Organizations Served', color: 'bg-brand-green/20' },
-              { icon: TrendingUp, value: '5 Years', label: 'Health Media', color: 'bg-white/10' },
+              { icon: TrendingUp, value: '2019', label: 'Serving Nigeria Since', color: 'bg-white/10' },
             ].map(({ icon: Icon, value, label, color }) => (
               <div
                 key={label}

@@ -9,7 +9,7 @@ import { buildMetadata } from '@/lib/utils/seo'
 export const metadata: Metadata = buildMetadata({
   title: 'Our Services',
   description:
-    'Healthcare digital transformation, health media content, training & capacity building, and brand & media consulting — all tailored for Africa\'s health sector.',
+    'Healthcare digital transformation, health media content, training & capacity building, and brand & media consulting — built specifically for Nigeria\'s health sector.',
   path: '/services',
 })
 
@@ -22,15 +22,15 @@ const services = [
     bg: 'bg-brand-teal-50',
     border: 'border-brand-teal/20',
     description:
-      'We help clinics, hospitals, and health professionals establish and grow their digital presence — from professional websites to full digital marketing management.',
+      'We help Nigerian clinics, hospitals, and health professionals establish and grow their digital presence — from professional websites to full digital marketing management built for the Nigerian market.',
     includes: [
-      'Website design & development',
+      'Professional website design & development',
       'Google My Business setup & optimization',
-      'Social media management',
-      'Digital marketing campaigns',
+      'Social media management (Facebook, Instagram, X)',
+      'Digital marketing campaigns for Nigerian audiences',
       'Online appointment booking systems',
     ],
-    audience: 'Clinics, hospitals, pharmacies, individual practitioners',
+    audience: 'Nigerian clinics, hospitals, pharmacies, private practitioners',
   },
   {
     icon: Newspaper,
@@ -40,15 +40,15 @@ const services = [
     bg: 'bg-emerald-50',
     border: 'border-brand-green/20',
     description:
-      'Professional health content creation that educates, informs, and builds trust with your audience — from articles to awareness campaigns.',
+      'Nigeria-focused health content that educates, informs, and builds trust. We create medically accurate content that speaks to Nigerian patients and communities in a way they understand and trust.',
     includes: [
-      'Health blog articles & copywriting',
-      'Awareness campaign content',
+      'Health blog articles & medical copywriting',
+      'Awareness campaign content (malaria, hypertension, diabetes & more)',
       'Infographics & educational materials',
-      'Social media health content',
-      'Email newsletters',
+      'Social media health content for Nigerian audiences',
+      'Email newsletters for patients and professionals',
     ],
-    audience: 'Health organizations, NGOs, clinics, research institutions',
+    audience: 'Nigerian health organizations, NGOs, clinics, research institutions',
   },
   {
     icon: GraduationCap,
@@ -58,15 +58,15 @@ const services = [
     bg: 'bg-amber-50',
     border: 'border-brand-gold/30',
     description:
-      'Practical training programs that equip healthcare workers with modern digital and communication skills to advance their careers and organizations.',
+      'Practical, hands-on training programs that equip Nigerian healthcare workers with modern digital and communication skills to advance their careers, grow their practice, and lead their field.',
     includes: [
-      'Digital literacy for healthcare workers',
-      'Research visibility & publication training',
-      'LinkedIn & personal branding',
-      'Healthcare marketing training',
-      'Online & in-person workshops',
+      'Digital literacy for Nigerian healthcare workers',
+      'Research visibility & academic publication training',
+      'LinkedIn & personal branding for health professionals',
+      'Healthcare marketing for Nigerian practices',
+      'Online and in-person workshops across Nigeria',
     ],
-    audience: 'Healthcare professionals, students, health organizations',
+    audience: 'Nigerian healthcare professionals, students, health organizations',
   },
   {
     icon: Megaphone,
@@ -76,23 +76,23 @@ const services = [
     bg: 'bg-purple-50',
     border: 'border-purple-200',
     description:
-      'Strategic consulting to define, position, and amplify your health brand across all channels — for professionals and organizations alike.',
+      'Strategic consulting to define, position, and amplify your health brand across Nigerian media — for practitioners who want to become the trusted voice in their specialty and location.',
     includes: [
-      'Health brand positioning strategy',
+      'Health brand positioning strategy for Nigeria',
       'Visibility & content strategy',
       'Campaign planning & execution',
-      'Personal branding for doctors/nurses',
-      'Media relations & PR',
+      'Personal branding for Nigerian doctors, nurses & pharmacists',
+      'Media relations & PR (TV, radio, online publications)',
     ],
-    audience: 'Health professionals, organizations, pharmaceutical companies',
+    audience: 'Nigerian health professionals, organizations, pharma companies',
   },
 ]
 
 const process = [
-  { step: '01', title: 'Discovery Call', description: 'We start with a free 30-minute call to understand your goals, challenges, and what success looks like for you.' },
-  { step: '02', title: 'Strategy & Proposal', description: 'We design a tailored strategy and present a clear proposal with deliverables, timelines, and pricing.' },
-  { step: '03', title: 'Execution', description: 'Our team gets to work, keeping you updated every step of the way with regular check-ins and progress reports.' },
-  { step: '04', title: 'Review & Growth', description: 'We measure results, gather feedback, and optimize continuously to ensure lasting impact for your practice.' },
+  { step: '01', title: 'Free Discovery Call', description: 'We start with a free 30-minute call to understand your goals, your current challenges, and what growth looks like for your specific Nigerian healthcare context.' },
+  { step: '02', title: 'Strategy & Proposal', description: 'We design a tailored strategy for your practice or organization and present a clear proposal with deliverables, timelines, and transparent pricing.' },
+  { step: '03', title: 'Execution', description: 'Our Nigerian health media team gets to work, keeping you informed at every step with regular updates, drafts, and progress reports.' },
+  { step: '04', title: 'Results & Growth', description: 'We measure what matters — patient inquiries, visibility, engagement, and revenue — and optimize continuously to ensure lasting impact for your practice.' },
 ]
 
 export default function ServicesPage() {
@@ -110,8 +110,8 @@ export default function ServicesPage() {
           </nav>
           <SectionHeading
             label="Our Services"
-            title="Everything Your Healthcare Practice Needs to Thrive Online"
-            subtitle="Four integrated service lines designed to help Nigerian and African health professionals grow their impact, reach, and revenue."
+            title="Everything Your Nigerian Healthcare Practice Needs to Thrive Online"
+            subtitle="Four integrated service lines built specifically for Nigerian health professionals — to help you grow your impact, reach more patients, and build the practice you deserve."
             align="left"
             inverted
           />
@@ -167,7 +167,7 @@ export default function ServicesPage() {
             id="process-heading"
             label="Our Process"
             title="How We Work With You"
-            subtitle="A clear, transparent process from first call to lasting results."
+            subtitle="Simple, transparent, and designed around your schedule — even if you're a busy clinician or hospital administrator."
           />
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12 relative">
             <div className="hidden md:block absolute top-8 left-16 right-16 h-0.5 bg-brand-teal/20" aria-hidden="true" />

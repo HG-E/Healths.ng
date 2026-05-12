@@ -6,29 +6,29 @@ import { urlFor } from '@/sanity/lib/image'
 const fallbackTestimonials = [
   {
     _id: '1',
-    author: 'Dr. Amina Okonkwo',
-    role: 'General Practitioner',
-    organization: 'Lagos Health Clinic',
+    author: 'Dr. Chukwuemeka Obi',
+    role: 'Consultant Physician',
+    organization: 'University of Nigeria Teaching Hospital, Enugu',
     content:
-      'Healths.ng transformed our clinic\'s online presence. Within 3 months, we doubled our patient inquiries. The team truly understands healthcare marketing.',
+      'Healths.ng built our department\'s digital presence from scratch. Within 3 months, patient inquiries doubled and our outreach programs reached communities we never could before. They understand the Nigerian healthcare context completely.',
     rating: 5,
   },
   {
     _id: '2',
-    author: 'Pharm. Emmanuel Adeyemi',
-    role: 'Clinical Pharmacist',
-    organization: 'PharmaCare Nigeria',
+    author: 'Pharm. Adaeze Nwosu',
+    role: 'Clinical Pharmacist & Entrepreneur',
+    organization: 'MedPlus Abuja',
     content:
-      'The training on LinkedIn branding was a game-changer. I now receive speaking invitations and consulting requests I never expected.',
+      'The LinkedIn branding training changed my career. I went from being unknown online to receiving speaking invitations, media appearances, and consulting requests — all within Nigeria\'s health industry.',
     rating: 5,
   },
   {
     _id: '3',
-    author: 'Nurse Joy Eze',
-    role: 'Senior Nurse',
-    organization: 'Federal Medical Centre',
+    author: 'Dr. Fatima Bello',
+    role: 'Public Health Specialist',
+    organization: 'Federal Ministry of Health, Abuja',
     content:
-      'The health media content they create for our campaigns is professional, accurate, and resonates with our community. Highly recommend.',
+      'The health awareness content Healths.ng created for our maternal health campaign was accurate, culturally relevant, and reached communities across northern Nigeria. Their team truly gets what Nigerian public health needs.',
     rating: 5,
   },
 ]
@@ -51,8 +51,8 @@ export async function TestimonialsSection() {
         <SectionHeading
           id="testimonials-heading"
           label="Testimonials"
-          title="Trusted by Health Professionals Across Nigeria"
-          subtitle="Real results from real healthcare professionals who chose to grow with Healths.ng."
+          title="What Nigerian Health Professionals Are Saying"
+          subtitle="From Lagos to Abuja to Enugu — real results from Nigerian healthcare professionals who chose to grow their practice and visibility with Healths.ng."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">

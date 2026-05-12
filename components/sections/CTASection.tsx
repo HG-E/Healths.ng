@@ -10,9 +10,9 @@ interface CTASectionProps {
 }
 
 export function CTASection({
-  title = 'Ready to Grow Your Healthcare Practice?',
-  subtitle = 'Book a free 30-minute discovery call and find out how Healths.ng can help you reach more patients and grow your impact.',
-  primaryCTA = { label: 'Book a Free Discovery Call', href: '/contact#booking' },
+  title = 'Ready to Grow Your Nigerian Healthcare Practice?',
+  subtitle = 'Book a free 30-minute discovery call. We\'ll show you exactly how Healths.ng can help you reach more patients, build your online reputation, and grow your practice — no fluff, just results.',
+  primaryCTA = { label: 'Book Your Free Discovery Call', href: '/contact#booking' },
   secondaryCTA = { label: 'Explore Our Services', href: '/services' },
 }: CTASectionProps) {
   return (
@@ -54,7 +54,7 @@ export function CTASection({
         </div>
 
         <p className="mt-6 text-white/60 text-sm">
-          No commitment required. We respond within 24 hours.
+          No commitment. No pressure. We respond within 24 business hours.
         </p>
       </div>
     </section>
