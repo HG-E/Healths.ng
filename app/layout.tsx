@@ -84,10 +84,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://healths.ng',
   },
-  icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-  },
   manifest: '/site.webmanifest',
 }
 

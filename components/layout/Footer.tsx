@@ -38,7 +38,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand column */}
           <div className="lg:col-span-2">
-            <Logo size="lg" inverted />
+            <Logo variant="full" size="lg" />
             <p className="mt-4 text-white/70 text-sm leading-relaxed max-w-sm">
               Africa&apos;s health media and digital empowerment platform. We make health knowledge
               accessible, visible, and actionable for everyone.
