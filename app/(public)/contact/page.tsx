@@ -74,7 +74,7 @@ function ContactForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="cf-phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-          <Input id="cf-phone" type="tel" placeholder="+234 800 000 0000" {...register('phone')} />
+          <Input id="cf-phone" type="tel" placeholder="+234 703 051 5183" {...register('phone')} />
         </div>
         <div>
           <label htmlFor="cf-org" className="block text-sm font-medium text-gray-700 mb-1">Organization</label>
@@ -149,7 +149,7 @@ function BookingForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="bf-phone" className="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
-          <Input id="bf-phone" type="tel" placeholder="+234 800 000 0000" {...register('phone')} aria-invalid={!!errors.phone} />
+          <Input id="bf-phone" type="tel" placeholder="+234 703 051 5183" {...register('phone')} aria-invalid={!!errors.phone} />
           {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
         </div>
         <div>
@@ -234,9 +234,9 @@ export default function ContactPage() {
                     <div className="w-9 h-9 bg-brand-teal-50 rounded-lg flex items-center justify-center shrink-0"><Mail size={16} className="text-brand-teal" /></div>
                     <div><p className="text-xs text-gray-500">Email</p><p className="font-medium text-sm">hello@healths.ng</p></div>
                   </a>
-                  <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-700 hover:text-brand-teal transition-colors">
+                  <a href="https://wa.me/2347030515183" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-700 hover:text-brand-teal transition-colors">
                     <div className="w-9 h-9 bg-brand-teal-50 rounded-lg flex items-center justify-center shrink-0"><MessageCircle size={16} className="text-brand-teal" /></div>
-                    <div><p className="text-xs text-gray-500">WhatsApp</p><p className="font-medium text-sm">+234 800 000 0000</p></div>
+                    <div><p className="text-xs text-gray-500">WhatsApp</p><p className="font-medium text-sm">+234 703 051 5183</p></div>
                   </a>
                   <div className="flex items-center gap-3 text-gray-700">
                     <div className="w-9 h-9 bg-brand-teal-50 rounded-lg flex items-center justify-center shrink-0"><MapPin size={16} className="text-brand-teal" /></div>
@@ -247,7 +247,7 @@ export default function ContactPage() {
               <div className="bg-brand-teal rounded-2xl p-6 text-white">
                 <h3 className="font-display font-bold mb-2">Response Time</h3>
                 <p className="text-white/80 text-sm">We respond to all inquiries within <strong className="text-white">24 business hours</strong>. For urgent matters, reach us directly via WhatsApp.</p>
-                <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+                <a href="https://wa.me/2347030515183" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
                   <MessageCircle size={16} /> Message on WhatsApp
                 </a>
               </div>

@@ -216,7 +216,7 @@ export function Navbar() {
                 </Button>
               </Link>
               <a
-                href="https://wa.me/2348000000000"
+                href="https://wa.me/2347030515183"
                 className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl border border-gray-200 text-brand-charcoal hover:border-brand-teal hover:text-brand-teal transition-colors text-sm font-medium"
                 target="_blank"
                 rel="noopener noreferrer"

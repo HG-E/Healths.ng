@@ -72,7 +72,7 @@ export function buildContactAutoReply(to: string, name: string) {
           <p style="color: #374151; line-height: 1.6;">We've received your message and we're delighted to hear from you.</p>
           <p style="color: #374151; line-height: 1.6;">Our team will review your inquiry and get back to you within <strong>24 business hours</strong>.</p>
           <p style="color: #374151; line-height: 1.6;">For urgent matters, you can reach us via WhatsApp:</p>
-          <a href="https://wa.me/2348000000000" style="display: inline-block; background: #25D366; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; margin: 8px 0;">Message us on WhatsApp</a>
+          <a href="https://wa.me/2347030515183" style="display: inline-block; background: #25D366; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; margin: 8px 0;">Message us on WhatsApp</a>
           <hr style="margin: 24px 0; border-color: #e5e7eb;" />
           <p style="color: #6b7280; font-size: 14px; margin: 0;">Warm regards,<br/><strong style="color: #0B6E6E;">The Healths.ng Team</strong><br/>Africa's Health Media & Digital Empowerment Platform</p>
         </div>
