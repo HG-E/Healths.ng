@@ -17,7 +17,7 @@ export const resend = {
 }
 
 export const FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? 'hello@healths.ng'
-export const TEAM_EMAIL = 'hello@healths.ng'
+export const TEAM_EMAIL = process.env.RESEND_TEAM_EMAIL ?? 'hello@healths.ng'
 
 export function buildContactNotificationEmail(data: {
   fullName: string
@@ -74,7 +74,7 @@ export function buildContactAutoReply(to: string, name: string) {
           <p style="color: #374151; line-height: 1.6;">For urgent matters, you can reach us via WhatsApp:</p>
           <a href="https://wa.me/2347030515183" style="display: inline-block; background: #25D366; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; margin: 8px 0;">Message us on WhatsApp</a>
           <hr style="margin: 24px 0; border-color: #e5e7eb;" />
-          <p style="color: #6b7280; font-size: 14px; margin: 0;">Warm regards,<br/><strong style="color: #0B6E6E;">The Healths.ng Team</strong><br/>Africa's Health Media & Digital Empowerment Platform</p>
+          <p style="color: #6b7280; font-size: 14px; margin: 0;">Warm regards,<br/><strong style="color: #0B6E6E;">The Healths.ng Team</strong><br/>Nigeria's Health Media &amp; Digital Empowerment Platform</p>
         </div>
       </div>
     `,
