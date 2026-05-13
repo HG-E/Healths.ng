@@ -4,18 +4,16 @@ import { Search } from 'lucide-react'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { ArticleCard } from '@/components/articles/ArticleCard'
 import { NewsletterSection } from '@/components/sections/NewsletterSection'
-import { getLatestArticles, getArticlesCount } from '@/lib/sanity/queries'
-import { readingTime } from '@/lib/utils/readingTime'
-import { urlFor } from '@/sanity/lib/image'
+import { getAllArticles, getArticlesCount, CATEGORY_COLORS } from '@/lib/content/articles'
 import { buildMetadata } from '@/lib/utils/seo'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Health Articles & Resources',
-  description: 'Evidence-based health articles, tips, and resources for healthcare professionals and the general public in Nigeria and Africa.',
+  description: 'Evidence-based health articles, tips, and resources for healthcare professionals and the general public in Nigeria.',
   path: '/articles',
 })
 
-export const revalidate = 3600
+export const revalidate = 60
 
 const categories = [
   { label: 'All', value: '' },
@@ -36,19 +34,14 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
   const pageSize = 9
   const offset = (currentPage - 1) * pageSize
 
-  let articles: Awaited<ReturnType<typeof getLatestArticles>> = []
-  let totalCount = 0
+  const allArticles = await getAllArticles()
+  const filtered = params.category
+    ? allArticles.filter((a) => a.category === params.category)
+    : allArticles
 
-  try {
-    ;[articles, totalCount] = await Promise.all([
-      getLatestArticles(pageSize, offset),
-      getArticlesCount(),
-    ])
-  } catch {
-    // Render empty state gracefully
-  }
-
-  const totalPages = Math.ceil(totalCount / pageSize)
+  const totalCount = await getArticlesCount()
+  const articles = filtered.slice(offset, offset + pageSize)
+  const totalPages = Math.ceil(filtered.length / pageSize)
 
   return (
     <>
@@ -64,12 +57,11 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
           </nav>
           <SectionHeading
             label="Health Articles"
-            title="Health Articles & Resources"
-            subtitle="Evidence-based health content written by professionals, for everyone. Stay informed, stay healthy."
+            title="Evidence-Based Health Content for Nigerian Professionals"
+            subtitle={`${totalCount > 0 ? `${totalCount} articles` : 'Articles'} written by healthcare professionals, for everyone. Stay informed, stay healthy.`}
             inverted
             align="left"
           />
-          {/* Search bar (UI only — Algolia wired in hooks) */}
           <div className="mt-8 max-w-xl relative">
             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50" aria-hidden="true" />
             <input
@@ -85,7 +77,7 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
       {/* Category filters */}
       <section className="py-4 bg-white border-b border-gray-100 sticky top-16 md:top-20 z-10">
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide" role="tablist" aria-label="Article categories">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Article categories">
             {categories.map(({ label, value }) => {
               const isActive = (params.category ?? '') === value
               return (
@@ -117,25 +109,16 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {articles.map((article) => (
                 <ArticleCard
-                  key={article._id}
+                  key={article.slug}
                   title={article.title}
                   excerpt={article.excerpt}
-                  slug={article.slug.current}
-                  coverImageUrl={
-                    article.coverImage
-                      ? urlFor(article.coverImage).width(600).height(340).url()
-                      : undefined
-                  }
-                  author={{
-                    name: article.author?.name ?? 'Healths.ng',
-                    avatarUrl: article.author?.image
-                      ? urlFor(article.author.image).width(56).height(56).url()
-                      : undefined,
-                  }}
+                  slug={article.slug}
+                  coverImageUrl={article.coverImage}
+                  author={{ name: article.author ?? 'Healths.ng' }}
                   publishedAt={article.publishedAt}
-                  readingTime={article.body ? readingTime(article.body as Parameters<typeof readingTime>[0]) : undefined}
-                  category={article.categories?.[0]?.title}
-                  categoryColor={article.categories?.[0]?.color}
+                  readingTime={article.readingTimeMinutes}
+                  category={article.category ? categories.find(c => c.value === article.category)?.label : undefined}
+                  categoryColor={article.category ? CATEGORY_COLORS[article.category] : undefined}
                 />
               ))}
             </div>
@@ -146,36 +129,25 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
             </div>
           )}
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <nav aria-label="Pagination" className="mt-12 flex items-center justify-center gap-2">
               {currentPage > 1 && (
-                <Link
-                  href={`/articles?page=${currentPage - 1}`}
-                  className="px-4 py-2 rounded-lg border border-gray-200 text-brand-charcoal hover:border-brand-teal hover:text-brand-teal transition-colors text-sm"
-                >
+                <Link href={`/articles?page=${currentPage - 1}${params.category ? `&category=${params.category}` : ''}`} className="px-4 py-2 rounded-lg border border-gray-200 text-brand-charcoal hover:border-brand-teal hover:text-brand-teal transition-colors text-sm">
                   ← Previous
                 </Link>
               )}
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                 <Link
                   key={page}
-                  href={`/articles?page=${page}`}
+                  href={`/articles?page=${page}${params.category ? `&category=${params.category}` : ''}`}
                   aria-current={page === currentPage ? 'page' : undefined}
-                  className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${
-                    page === currentPage
-                      ? 'bg-brand-teal text-white'
-                      : 'border border-gray-200 text-brand-charcoal hover:border-brand-teal hover:text-brand-teal'
-                  }`}
+                  className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${page === currentPage ? 'bg-brand-teal text-white' : 'border border-gray-200 text-brand-charcoal hover:border-brand-teal hover:text-brand-teal'}`}
                 >
                   {page}
                 </Link>
               ))}
               {currentPage < totalPages && (
-                <Link
-                  href={`/articles?page=${currentPage + 1}`}
-                  className="px-4 py-2 rounded-lg border border-gray-200 text-brand-charcoal hover:border-brand-teal hover:text-brand-teal transition-colors text-sm"
-                >
+                <Link href={`/articles?page=${currentPage + 1}${params.category ? `&category=${params.category}` : ''}`} className="px-4 py-2 rounded-lg border border-gray-200 text-brand-charcoal hover:border-brand-teal hover:text-brand-teal transition-colors text-sm">
                   Next →
                 </Link>
               )}

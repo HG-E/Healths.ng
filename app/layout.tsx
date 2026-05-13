@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: '%s | Healths.ng',
   },
   description:
-    "Africa's leading health media and digital empowerment platform. Health articles, digital services for healthcare professionals, and capacity building training.",
+    "Nigeria's health media and digital empowerment platform. Evidence-based health articles, digital transformation services for healthcare professionals, and capacity building training.",
   keywords: [
     'health media Nigeria',
     'healthcare digital transformation',
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     siteName: 'Healths.ng Media Limited',
     title: 'Healths.ng Media Limited',
     description:
-      "Africa's leading health media and digital empowerment platform.",
+      "Nigeria's health media and digital empowerment platform.",
     images: [
       {
         url: '/og/default-og.jpg',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     creator: '@healthsng',
     title: 'Healths.ng Media Limited',
     description:
-      "Africa's leading health media and digital empowerment platform.",
+      "Nigeria's health media and digital empowerment platform.",
     images: ['/og/default-og.jpg'],
   },
   robots: {

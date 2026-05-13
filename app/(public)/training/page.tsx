@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { CTASection } from '@/components/sections/CTASection'
-import { getUpcomingEvents } from '@/lib/sanity/queries'
 import { formatDate } from '@/lib/utils/formatDate'
 import { buildMetadata } from '@/lib/utils/seo'
 
@@ -25,10 +24,7 @@ const trainingCategories = [
 ]
 
 export default async function TrainingPage() {
-  let events: Awaited<ReturnType<typeof getUpcomingEvents>> = []
-  try {
-    events = await getUpcomingEvents(6)
-  } catch {}
+  const events: { _id: string; title: string; description?: string; date: string; location?: string; isOnline?: boolean; registrationUrl?: string; price?: number; capacity?: number }[] = []
 
   return (
     <>

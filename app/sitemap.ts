@@ -1,38 +1,34 @@
 import type { MetadataRoute } from 'next'
-import { getAllArticleSlugs } from '@/lib/sanity/queries'
+import { getAllSlugs } from '@/lib/content/articles'
+
+const BASE = 'https://healths.ng'
+const now = new Date()
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://healths.ng'
-  const now = new Date().toISOString()
+  const slugs = await getAllSlugs()
 
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: baseUrl, lastModified: now, changeFrequency: 'daily', priority: 1 },
-    { url: `${baseUrl}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/services`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/services/healthcare-digital-transformation`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/services/health-media-content`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/services/training-capacity-building`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/services/brand-media-consulting`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/training`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/articles`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
-    { url: `${baseUrl}/team`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/success-stories`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/newsletter`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
+  const articleUrls: MetadataRoute.Sitemap = slugs.map((slug) => ({
+    url: `${BASE}/articles/${slug}`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }))
+
+  return [
+    { url: BASE, lastModified: now, changeFrequency: 'daily', priority: 1.0 },
+    { url: `${BASE}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/services`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/services/healthcare-digital-transformation`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/services/health-media-content`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/services/training-capacity-building`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/services/brand-media-consulting`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/pricing`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/articles`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE}/training`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${BASE}/success-stories`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/privacy-policy`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE}/terms`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    ...articleUrls,
   ]
-
-  let articleRoutes: MetadataRoute.Sitemap = []
-  try {
-    const slugs = await getAllArticleSlugs()
-    articleRoutes = slugs.map(({ slug }) => ({
-      url: `${baseUrl}/articles/${slug.current}`,
-      lastModified: now,
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    }))
-  } catch {
-    // Return static routes only if Sanity is not configured
-  }
-
-  return [...staticRoutes, ...articleRoutes]
 }

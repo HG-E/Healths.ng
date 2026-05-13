@@ -2,86 +2,67 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { PortableText } from '@portabletext/react'
+import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Clock, Calendar, ArrowLeft, Share2 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { ArticleCard } from '@/components/articles/ArticleCard'
 import { NewsletterSection } from '@/components/sections/NewsletterSection'
-import { getArticleBySlug, getAllArticleSlugs, getRelatedArticles } from '@/lib/sanity/queries'
-import { readingTime } from '@/lib/utils/readingTime'
+import { mdxComponents } from '@/components/mdx'
+import {
+  getArticleBySlug,
+  getAllSlugs,
+  getRelatedArticles,
+  CATEGORY_COLORS,
+  CATEGORY_LABELS,
+} from '@/lib/content/articles'
 import { formatDate } from '@/lib/utils/formatDate'
-import { urlFor } from '@/sanity/lib/image'
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
-  try {
-    const slugs = await getAllArticleSlugs()
-    return slugs.map(({ slug }) => ({ slug: slug.current }))
-  } catch {
-    return []
-  }
+  const slugs = await getAllSlugs()
+  return slugs.map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params
-  try {
-    const article = await getArticleBySlug(slug)
-    if (!article) return {}
-    const imageUrl = article.coverImage ? urlFor(article.coverImage).width(1200).height(630).url() : '/og/default-og.jpg'
-    return {
+  const article = await getArticleBySlug(slug)
+  if (!article) return {}
+  const image = article.coverImage ?? '/og/default-og.jpg'
+  return {
+    title: article.seoTitle ?? article.title,
+    description: article.seoDescription ?? article.excerpt,
+    openGraph: {
       title: article.seoTitle ?? article.title,
       description: article.seoDescription ?? article.excerpt,
-      openGraph: {
-        title: article.seoTitle ?? article.title,
-        description: article.seoDescription ?? article.excerpt,
-        type: 'article',
-        publishedTime: article.publishedAt,
-        authors: article.author ? [article.author.name] : [],
-        images: [{ url: imageUrl, width: 1200, height: 630 }],
-      },
-      twitter: {
-        card: 'summary_large_image',
-        title: article.seoTitle ?? article.title,
-        description: article.seoDescription ?? article.excerpt,
-        images: [imageUrl],
-      },
-    }
-  } catch {
-    return {}
+      type: 'article',
+      publishedTime: article.publishedAt,
+      authors: article.author ? [article.author] : [],
+      images: [{ url: image, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.seoTitle ?? article.title,
+      description: article.seoDescription ?? article.excerpt,
+      images: [image],
+    },
   }
 }
 
-export const revalidate = 3600
+export const revalidate = 60
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params
-  let article: Awaited<ReturnType<typeof getArticleBySlug>> = null
-  let relatedArticles: Awaited<ReturnType<typeof getRelatedArticles>> = []
-
-  try {
-    article = await getArticleBySlug(slug)
-  } catch {
-    notFound()
-  }
-
+  const article = await getArticleBySlug(slug)
   if (!article) notFound()
 
-  const rt = article.body ? readingTime(article.body as Parameters<typeof readingTime>[0]) : 1
-  const categoryIds = article.categories?.map((c) => c._id) ?? []
-
-  try {
-    if (categoryIds.length > 0) {
-      relatedArticles = await getRelatedArticles(article._id, categoryIds, 3)
-    }
-  } catch {}
-
-  const authorInitials = article.author?.name
-    ? article.author.name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)
+  const related = await getRelatedArticles(slug, article.category, 3)
+  const authorInitials = article.author
+    ? article.author.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)
     : 'HN'
 
   const articleJsonLd = {
@@ -89,18 +70,31 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     '@type': 'Article',
     headline: article.title,
     description: article.excerpt ?? '',
-    image: article.coverImage ? urlFor(article.coverImage).width(1200).height(630).url() : '',
+    image: article.coverImage ? `https://healths.ng${article.coverImage}` : 'https://healths.ng/og/default-og.jpg',
     datePublished: article.publishedAt ?? '',
-    author: article.author ? { '@type': 'Person', name: article.author.name } : { '@type': 'Organization', name: 'Healths.ng' },
-    publisher: { '@type': 'Organization', name: 'Healths.ng Media Limited', url: 'https://healths.ng' },
+    author: article.author
+      ? { '@type': 'Person', name: article.author, jobTitle: article.authorRole }
+      : { '@type': 'Organization', name: 'Healths.ng' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Healths.ng Media Limited',
+      url: 'https://healths.ng',
+    },
+    keywords: article.tags?.join(', '),
   }
+
+  const categoryLabel = article.category ? CATEGORY_LABELS[article.category] : undefined
+  const categoryColor = article.category ? CATEGORY_COLORS[article.category] : undefined
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
 
-      {/* Article header */}
       <article>
+        {/* Header */}
         <header className="pt-12 pb-8 bg-white border-b border-gray-100">
           <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
             <nav aria-label="Breadcrumb" className="mb-6">
@@ -109,22 +103,20 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 <li aria-hidden="true">/</li>
                 <li><Link href="/articles" className="hover:text-brand-teal">Articles</Link></li>
                 <li aria-hidden="true">/</li>
-                <li className="text-brand-charcoal truncate max-w-xs">{article.title}</li>
+                <li className="text-brand-charcoal truncate max-w-[200px]">{article.title}</li>
               </ol>
             </nav>
 
-            {article.categories && article.categories.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
-                {article.categories.map((cat) => (
-                  <Link key={cat._id} href={`/articles?category=${cat.slug.current}`}>
-                    <Badge
-                      className="text-xs font-semibold text-white border-0 hover:opacity-90"
-                      style={{ backgroundColor: cat.color ?? '#0B6E6E' }}
-                    >
-                      {cat.title}
-                    </Badge>
-                  </Link>
-                ))}
+            {categoryLabel && (
+              <div className="mb-4">
+                <Link href={`/articles?category=${article.category}`}>
+                  <Badge
+                    className="text-xs font-semibold text-white border-0 hover:opacity-90"
+                    style={{ backgroundColor: categoryColor ?? '#0B6E6E' }}
+                  >
+                    {categoryLabel}
+                  </Badge>
+                </Link>
               </div>
             )}
 
@@ -135,15 +127,19 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
               <div className="flex items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage
-                    src={article.author?.image ? urlFor(article.author.image).width(64).height(64).url() : undefined}
-                    alt={article.author?.name ?? 'Author'}
-                  />
+                  {article.authorAvatar && (
+                    <AvatarImage src={article.authorAvatar} alt={article.author ?? 'Author'} />
+                  )}
                   <AvatarFallback className="bg-brand-teal-50 text-brand-teal text-xs font-semibold">
                     {authorInitials}
                   </AvatarFallback>
                 </Avatar>
-                <span className="font-medium text-brand-charcoal">{article.author?.name ?? 'Healths.ng'}</span>
+                <div>
+                  <span className="font-medium text-brand-charcoal">{article.author ?? 'Healths.ng'}</span>
+                  {article.authorRole && (
+                    <span className="text-gray-400 text-xs ml-2">{article.authorRole}</span>
+                  )}
+                </div>
               </div>
               {article.publishedAt && (
                 <span className="flex items-center gap-1">
@@ -151,7 +147,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 </span>
               )}
               <span className="flex items-center gap-1">
-                <Clock size={13} />{rt} min read
+                <Clock size={13} />{article.readingTimeMinutes} min read
               </span>
             </div>
           </div>
@@ -163,8 +159,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
               <div className="relative aspect-[16/7] overflow-hidden rounded-b-2xl">
                 <Image
-                  src={urlFor(article.coverImage).width(1200).height(525).url()}
-                  alt={(article.coverImage as { alt?: string }).alt ?? article.title}
+                  src={article.coverImage}
+                  alt={article.title}
                   fill
                   priority
                   className="object-cover"
@@ -175,54 +171,45 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </div>
         )}
 
-        {/* Article body */}
+        {/* Body */}
         <div className="py-12 bg-white">
           <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-12">
               <div className="prose prose-lg prose-headings:font-display prose-headings:text-brand-charcoal prose-a:text-brand-teal max-w-none">
-                {article.body && (
-                  <PortableText
-                    value={article.body as Parameters<typeof PortableText>[0]['value']}
-                    components={{
-                      types: {
-                        image: ({ value }) => {
-                          const imgUrl = urlFor(value).width(800).url()
-                          return (
-                            <figure className="my-8">
-                              <div className="relative aspect-[16/9] rounded-xl overflow-hidden">
-                                <Image src={imgUrl} alt={value.alt ?? ''} fill className="object-cover" sizes="800px" />
-                              </div>
-                              {value.alt && <figcaption className="text-center text-sm text-gray-500 mt-2">{value.alt}</figcaption>}
-                            </figure>
-                          )
-                        },
-                      },
-                    }}
-                  />
-                )}
+                <MDXRemote source={article.content} components={mdxComponents} />
               </div>
 
               {/* Sidebar */}
               <aside className="space-y-6">
-                {/* Share */}
                 <div className="p-5 bg-brand-warm-gray rounded-2xl">
                   <h3 className="font-display font-bold text-brand-charcoal mb-3 flex items-center gap-2">
-                    <Share2 size={16} /> Share this article
+                    <Share2 size={16} /> Share
                   </h3>
                   <div className="space-y-2">
-                    <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(`https://healths.ng/articles/${slug}`)}`} target="_blank" rel="noopener noreferrer" className="block w-full text-center py-2 px-4 rounded-lg bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors">
+                    <a
+                      href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(`https://healths.ng/articles/${slug}`)}`}
+                      target="_blank" rel="noopener noreferrer"
+                      className="block w-full text-center py-2 px-4 rounded-lg bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors"
+                    >
                       Share on X
                     </a>
-                    <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://healths.ng/articles/${slug}`)}&title=${encodeURIComponent(article.title)}`} target="_blank" rel="noopener noreferrer" className="block w-full text-center py-2 px-4 rounded-lg bg-[#0077B5] text-white text-sm font-medium hover:bg-[#006097] transition-colors">
+                    <a
+                      href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://healths.ng/articles/${slug}`)}&title=${encodeURIComponent(article.title)}`}
+                      target="_blank" rel="noopener noreferrer"
+                      className="block w-full text-center py-2 px-4 rounded-lg bg-[#0077B5] text-white text-sm font-medium hover:bg-[#006097] transition-colors"
+                    >
                       Share on LinkedIn
                     </a>
-                    <a href={`https://wa.me/?text=${encodeURIComponent(`${article.title} https://healths.ng/articles/${slug}`)}`} target="_blank" rel="noopener noreferrer" className="block w-full text-center py-2 px-4 rounded-lg bg-[#25D366] text-white text-sm font-medium hover:bg-[#1da851] transition-colors">
+                    <a
+                      href={`https://wa.me/?text=${encodeURIComponent(`${article.title} https://healths.ng/articles/${slug}`)}`}
+                      target="_blank" rel="noopener noreferrer"
+                      className="block w-full text-center py-2 px-4 rounded-lg bg-[#25D366] text-white text-sm font-medium hover:bg-[#1da851] transition-colors"
+                    >
                       Share on WhatsApp
                     </a>
                   </div>
                 </div>
 
-                {/* Tags */}
                 {article.tags && article.tags.length > 0 && (
                   <div className="p-5 bg-brand-warm-gray rounded-2xl">
                     <h3 className="font-display font-bold text-brand-charcoal mb-3">Tags</h3>
@@ -242,18 +229,21 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             {article.author && (
               <div className="mt-12 p-6 bg-brand-teal-50 rounded-2xl border border-brand-teal/10 flex flex-col sm:flex-row gap-4">
                 <Avatar className="h-16 w-16 shrink-0">
-                  <AvatarImage
-                    src={article.author.image ? urlFor(article.author.image).width(128).height(128).url() : undefined}
-                    alt={article.author.name}
-                  />
+                  {article.authorAvatar && (
+                    <AvatarImage src={article.authorAvatar} alt={article.author} />
+                  )}
                   <AvatarFallback className="bg-brand-teal text-white font-bold text-lg">
                     {authorInitials}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <div className="font-display font-bold text-brand-charcoal text-lg">{article.author.name}</div>
-                  {article.author.role && <div className="text-brand-teal text-sm mb-2">{article.author.role}</div>}
-                  {article.author.bio && <p className="text-gray-600 text-sm leading-relaxed">{article.author.bio}</p>}
+                  <div className="font-display font-bold text-brand-charcoal text-lg">{article.author}</div>
+                  {article.authorRole && (
+                    <div className="text-brand-teal text-sm mb-2">{article.authorRole}</div>
+                  )}
+                  {article.authorBio && (
+                    <p className="text-gray-600 text-sm leading-relaxed">{article.authorBio}</p>
+                  )}
                 </div>
               </div>
             )}
@@ -262,22 +252,23 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       </article>
 
       {/* Related articles */}
-      {relatedArticles.length > 0 && (
+      {related.length > 0 && (
         <section className="py-16 bg-brand-warm-gray" aria-labelledby="related-heading">
           <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
             <SectionHeading id="related-heading" label="Keep Reading" title="Related Articles" align="left" />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-              {relatedArticles.map((ra) => (
+              {related.map((ra) => (
                 <ArticleCard
-                  key={ra._id}
+                  key={ra.slug}
                   title={ra.title}
                   excerpt={ra.excerpt}
-                  slug={ra.slug.current}
-                  coverImageUrl={ra.coverImage ? urlFor(ra.coverImage).width(600).height(340).url() : undefined}
-                  author={{ name: ra.author?.name ?? 'Healths.ng' }}
+                  slug={ra.slug}
+                  coverImageUrl={ra.coverImage}
+                  author={{ name: ra.author ?? 'Healths.ng' }}
                   publishedAt={ra.publishedAt}
-                  category={ra.categories?.[0]?.title}
-                  categoryColor={ra.categories?.[0]?.color}
+                  readingTime={ra.readingTimeMinutes}
+                  category={ra.category ? CATEGORY_LABELS[ra.category] : undefined}
+                  categoryColor={ra.category ? CATEGORY_COLORS[ra.category] : undefined}
                 />
               ))}
             </div>
@@ -287,7 +278,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
       <NewsletterSection />
 
-      {/* Back to articles */}
       <div className="py-8 bg-white border-t border-gray-100">
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
           <Link href="/articles" className="inline-flex items-center gap-2 text-brand-teal font-semibold hover:text-brand-teal-dark transition-colors">
