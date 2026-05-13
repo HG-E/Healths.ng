@@ -19,7 +19,7 @@ const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/services', label: 'Services', children: serviceLinks },
-  { href: '/training', label: 'Training' },
+  { href: '/pricing', label: 'Pricing' },
   { href: '/articles', label: 'Articles' },
   { href: '/contact', label: 'Contact' },
 ]
