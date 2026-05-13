@@ -10,7 +10,7 @@ const fallbackTestimonials = [
     role: 'Consultant Physician',
     organization: 'University of Nigeria Teaching Hospital, Enugu',
     content:
-      'Healths.ng built our department\'s digital presence from scratch. Within 3 months, patient inquiries doubled and our outreach programs reached communities we never could before. They understand the Nigerian healthcare context completely.',
+      'Within 3 months of working with Healths.ng, patient inquiries from our website doubled. They genuinely understand the Nigerian healthcare context — not just the digital side, but the cultural and regulatory nuances too.',
     rating: 5,
   },
   {
@@ -19,7 +19,7 @@ const fallbackTestimonials = [
     role: 'Clinical Pharmacist & Entrepreneur',
     organization: 'MedPlus Abuja',
     content:
-      'The LinkedIn branding training changed my career. I went from being unknown online to receiving speaking invitations, media appearances, and consulting requests — all within Nigeria\'s health industry.',
+      'The LinkedIn branding training was practical, not generic. I went from zero online presence to receiving speaking invitations and consulting requests within Nigeria\'s health industry. Worth every naira.',
     rating: 5,
   },
   {
@@ -28,8 +28,8 @@ const fallbackTestimonials = [
     role: 'Public Health Specialist',
     organization: 'Federal Ministry of Health, Abuja',
     content:
-      'The health awareness content Healths.ng created for our maternal health campaign was accurate, culturally relevant, and reached communities across northern Nigeria. Their team truly gets what Nigerian public health needs.',
-    rating: 5,
+      'The maternal health content they produced was medically accurate and culturally relevant — not the generic content agencies usually deliver. It reached communities across northern Nigeria in a way our internal team could not.',
+    rating: 4,
   },
 ]
 

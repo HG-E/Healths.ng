@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 export function HeroSection() {
   return (
     <section
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-[90vh] flex items-center overflow-hidden"
       aria-label="Hero"
     >
       {/* Gradient background */}
@@ -25,41 +25,42 @@ export function HeroSection() {
             </div>
 
             <h1 className="font-display font-bold text-4xl md:text-5xl xl:text-6xl leading-tight mb-6">
-              Nigeria&apos;s Health Knowledge{' '}
+              Nigeria&apos;s Health Media{' '}
               <span className="text-brand-gold">&</span> Digital Growth Platform
             </h1>
 
-            <p className="text-white/85 text-lg md:text-xl leading-relaxed mb-3 max-w-lg">
-              We publish expert health content that millions of Nigerians rely on for accurate
-              medical guidance.
-            </p>
-            <p className="text-white/75 text-base md:text-lg leading-relaxed mb-3 max-w-lg">
-              We help Nigerian healthcare professionals build their digital presence, attract
-              more patients, and grow their practice.
-            </p>
-            <p className="text-white/65 text-sm md:text-base leading-relaxed mb-8 max-w-lg italic">
-              Because when health professionals thrive, every Nigerian gets better access to
-              the care they deserve.
+            <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-6 max-w-lg">
+              We help Nigerian healthcare professionals build a powerful digital presence —
+              attracting more patients, growing their practice, and becoming the trusted
+              authority in their field.
             </p>
 
+            <blockquote className="flex items-start gap-3 bg-white/10 border border-white/20 rounded-xl px-4 py-3 mb-8 max-w-lg">
+              <span className="text-brand-gold text-2xl leading-none font-serif mt-0.5 shrink-0">&ldquo;</span>
+              <p className="text-white/90 text-sm md:text-base leading-relaxed">
+                When health professionals thrive, every Nigerian gets better access to the
+                care they deserve.
+              </p>
+            </blockquote>
+
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/services">
+              <Link href="/contact#booking">
                 <Button
                   size="lg"
                   className="bg-white text-brand-teal hover:bg-brand-teal-50 font-bold px-8 w-full sm:w-auto"
                 >
-                  Grow Your Practice
+                  Book a Free Discovery Call
                   <ArrowRight size={16} className="ml-2" />
                 </Button>
               </Link>
-              <Link href="/articles">
+              <Link href="/services">
                 <Button
                   size="lg"
                   variant="outline"
                   className="border-white/60 text-white hover:bg-white/10 font-semibold px-8 w-full sm:w-auto bg-transparent"
                 >
                   <BookOpen size={16} className="mr-2" />
-                  Read Health Articles
+                  Explore Our Services
                 </Button>
               </Link>
             </div>
@@ -68,9 +69,9 @@ export function HeroSection() {
           {/* Right: Stats widget */}
           <div className="grid grid-cols-2 gap-4 animate-slide-up">
             {[
-              { icon: Users, value: '10,000+', label: 'Professionals Reached', color: 'bg-white/15' },
+              { icon: Users, value: '10,000+', label: 'Professionals Trained & Served', color: 'bg-white/15' },
               { icon: BookOpen, value: '500+', label: 'Health Articles Published', color: 'bg-brand-gold/20' },
-              { icon: Shield, value: '50+', label: 'Organizations Served', color: 'bg-brand-green/20' },
+              { icon: Shield, value: '50+', label: 'Organizations Partnered', color: 'bg-brand-green/20' },
               { icon: TrendingUp, value: '2019', label: 'Serving Nigeria Since', color: 'bg-white/10' },
             ].map(({ icon: Icon, value, label, color }) => (
               <div

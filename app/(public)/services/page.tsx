@@ -72,9 +72,9 @@ const services = [
     icon: Megaphone,
     title: 'Brand & Media Consulting',
     href: '/services/brand-media-consulting',
-    color: 'text-purple-600',
-    bg: 'bg-purple-50',
-    border: 'border-purple-200',
+    color: 'text-brand-teal',
+    bg: 'bg-brand-teal-50',
+    border: 'border-brand-teal/20',
     description:
       'Strategic consulting to define, position, and amplify your health brand across Nigerian media — for practitioners who want to become the trusted voice in their specialty and location.',
     includes: [
