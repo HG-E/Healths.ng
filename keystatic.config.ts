@@ -1,7 +1,7 @@
 import { config, collection, fields } from '@keystatic/core'
 
 export default config({
-  storage: process.env.NODE_ENV === 'production'
+  storage: (process.env.NODE_ENV === 'production' && process.env.KEYSTATIC_GITHUB_CLIENT_ID)
     ? {
         kind: 'github',
         repo: { owner: 'HG-E', name: 'Healths.ng' },
@@ -55,7 +55,7 @@ export default config({
         seoDescription: fields.text({ label: 'SEO Description (leave blank to use excerpt)' }),
         tags: fields.array(
           fields.text({ label: 'Tag' }),
-          { label: 'Tags', itemLabel: (props) => props.fields.value.value ?? 'Tag' }
+          { label: 'Tags', itemLabel: (props) => props.value ?? 'Tag' }
         ),
         content: fields.mdx({ label: 'Content' }),
       },

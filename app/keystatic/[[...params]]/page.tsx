@@ -1,10 +1,4 @@
-'use client'
+import { makePage } from '@keystatic/next/ui/app'
+import config from '../../../keystatic.config'
 
-import dynamic from 'next/dynamic'
-import config from '../.././../keystatic.config'
-
-const KeystaticApp = dynamic(() => import('@keystatic/next/keystatic-app'), { ssr: false })
-
-export default function KeystaticPage() {
-  return <KeystaticApp config={config} />
-}
+export default makePage(config)
