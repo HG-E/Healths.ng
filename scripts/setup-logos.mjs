@@ -33,7 +33,7 @@ const renderedPng = await sharp(svgBuf, { density: 300 })
 
 // 4. Trim whitespace/transparency and make a square with 8% padding
 const trimmedPng = await sharp(renderedPng)
-  .trim({ threshold: 15 })
+  .trim({ threshold: 40 })
   .png()
   .toBuffer()
 
@@ -42,7 +42,8 @@ const tw = meta.width
 const th = meta.height
 console.log(`Rendered+trimmed size: ${tw}x${th}`)
 
-const side = Math.round(Math.max(tw, th) * 1.08)
+// 2% padding — just enough to avoid clipping antialiased edges
+const side = Math.round(Math.max(tw, th) * 1.02)
 const xOffset = Math.round((side - tw) / 2)
 const yOffset = Math.round((side - th) / 2)
 
@@ -68,30 +69,31 @@ writeFileSync(join(pub, 'logo-icon-trimmed.png'), navbarBuf)
 console.log('Wrote public/logo-icon-trimmed.png (512×512, for navbar)')
 
 // 6. Generate all PNG favicon / PWA sizes
+// Favicons use 'cover' so the logo fills the box edge-to-edge (no letterboxing).
+// PWA/apple icons keep 'contain' with white bg so nothing is cropped.
 const pngSizes = [
-  { size: 512, dest: join(pub, 'icon-512.png') },
-  { size: 192, dest: join(pub, 'icon-192.png') },
-  { size: 180, dest: join(pub, 'apple-touch-icon.png') },
-  { size: 32,  dest: join(pub, 'favicon-32.png') },
-  { size: 512, dest: join(appDir, 'icon.png') },
-  { size: 180, dest: join(appDir, 'apple-icon.png') },
+  { size: 512, dest: join(pub, 'icon-512.png'),          fit: 'cover' },
+  { size: 192, dest: join(pub, 'icon-192.png'),          fit: 'contain', bg: { r: 255, g: 255, b: 255, alpha: 1 } },
+  { size: 180, dest: join(pub, 'apple-touch-icon.png'),  fit: 'contain', bg: { r: 255, g: 255, b: 255, alpha: 1 } },
+  { size: 32,  dest: join(pub, 'favicon-32.png'),        fit: 'cover' },
+  { size: 512, dest: join(appDir, 'icon.png'),           fit: 'cover' },
+  { size: 180, dest: join(appDir, 'apple-icon.png'),     fit: 'contain', bg: { r: 255, g: 255, b: 255, alpha: 1 } },
 ]
 
-for (const { size, dest } of pngSizes) {
-  await sharp(squareBuf)
-    .resize(size, size, { fit: 'contain', background: bg })
+for (const { size, dest, fit, bg: imgBg } of pngSizes) {
+  await sharp(trimmedPng)
+    .resize(size, size, { fit, background: imgBg ?? bg, position: 'centre' })
     .png()
     .toFile(dest)
-  console.log(`Generated ${dest.replace(root, '').replace(/\\/g, '/')} (${size}x${size})`)
+  console.log(`Generated ${dest.replace(root, '').replace(/\\/g, '/')} (${size}x${size}, fit:${fit})`)
 }
 
-// 7. Build a multi-resolution favicon.ico (16, 32, 48px) with embedded PNGs
-//    ICO format: ICONDIR header + ICONDIRENTRY per image + raw PNG data
+// 7. Build a multi-resolution favicon.ico (48, 32, 16px) — use 'cover' to fill each size
 const icoSizes = [48, 32, 16]
 const pngBuffers = await Promise.all(
   icoSizes.map(sz =>
-    sharp(squareBuf)
-      .resize(sz, sz, { fit: 'contain', background: bg })
+    sharp(trimmedPng)
+      .resize(sz, sz, { fit: 'cover', background: bg, position: 'centre' })
       .png()
       .toBuffer()
   )
